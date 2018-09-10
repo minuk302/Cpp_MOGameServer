@@ -1,6 +1,5 @@
 # MOGameServer
-
-* to implement a MO game server containing general features and updating those as i get to know improved ways.
+to implement a MO game server containing general features and updating those as i get to know improved ways.
 
 * Progress
   * Doing
