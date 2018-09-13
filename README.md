@@ -1,12 +1,11 @@
 # MOGameServer
-to implement a MO game server containing general features and update those as i get to know improved ways.
 
 * Progress
   * Doing
   * To do
+    * Basic IOCP recieve and send
+    * Adding and parsing config file
+    * Dispatcher
+    * Session management system
+    * Test client
   * Done
-  
-* Development environment
-  * OS : Windows 10
-  * IDE : Visual Studio 2017
-  * Language : C++
