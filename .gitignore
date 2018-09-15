@@ -32,4 +32,8 @@
 *.app
 
 # Miscellaneous
+*.tlog
+*.log
+*.pdb
+*.idb
 .vs/
