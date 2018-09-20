@@ -53,7 +53,7 @@ void Logger::Write( Type type, const std::wostream&& stream )
 	localtime_s( &localTime, &rawTime );
 
 	wchar_t header[ 64/*HeaderLength*/ ] = {};
-	wsprintf( header, L"[%04u-%02u-%02u %02u:%02u:%02u.%03u]%s ", localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec, std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000, ToString( type ) );
+	wsprintf( header, L"[%04u-%02u-%02u %02u:%02u:%02u.%03u]%s ", localTime.tm_year + 1900, localTime.tm_mon + 1, localTime.tm_mday, localTime.tm_hour, localTime.tm_min, localTime.tm_sec, std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000, ToString( type ).c_str() );
 
 	std::wostringstream logStream;
 	logStream << header << stream.rdbuf() << std::endl;

@@ -5,8 +5,8 @@
     * Basic IOCP recieve and send
     * log system.
       * to file
-        * change file as time goes
-	* change file as size gets bigger
+        * change file on set time
+        * change file when exceed set size
       * exception
   * To do
     * Echo server and client, testing

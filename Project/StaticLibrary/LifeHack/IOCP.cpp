@@ -12,7 +12,7 @@ IOCP::~IOCP()
 {
 }
 
-void IOCP::Init( int Port )
+void IOCP::Init( short Port )
 {
 	// need more logs to print errors and system values
 	if ( socket != INVALID_SOCKET )
@@ -167,10 +167,10 @@ void IOCP::IoThreadProcedure()
 	}
 }
 
-void IOCP::Send( SOCKET socket, const char* buffer, int len )
+void IOCP::Send( SOCKET sender, const char* buffer, int len )
 {
 	WSABUF wsaBuf;
 	wsaBuf.len = len;
 	wsaBuf.buf = const_cast<char*>(buffer);
-	WSASend( socket, &(wsaBuf), 1, NULL, 0, nullptr, NULL );
+	WSASend( sender, &(wsaBuf), 1, NULL, 0, nullptr, NULL );
 }

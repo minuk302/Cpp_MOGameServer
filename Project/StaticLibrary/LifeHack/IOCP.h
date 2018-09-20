@@ -6,7 +6,7 @@ public:
 	IOCP();
 	~IOCP();
 
-	void Init( int Port );
+	void Init( short Port );
 	void Release();
 
 private:
