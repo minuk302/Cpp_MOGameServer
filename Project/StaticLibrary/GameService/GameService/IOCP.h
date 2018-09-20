@@ -10,7 +10,7 @@ public:
 	void Release();
 
 private:
-	void Accept();
+	void AcceptThreadProcedure();
 	void IoThreadProcedure();
 	void Send( SOCKET socket, const char* buffer, int len );
 

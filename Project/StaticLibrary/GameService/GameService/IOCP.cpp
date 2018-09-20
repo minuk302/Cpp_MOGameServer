@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "IOCP.h"
+#include "Logger.h"
 
 IOCP::IOCP()
 	: socket( INVALID_SOCKET )
@@ -56,7 +57,7 @@ void IOCP::Init( int Port )
 		return;
 	}
 
-	threads.emplace_back( std::make_shared< std::thread >( &IOCP::Accept, *this ) );
+	threads.emplace_back( std::make_shared< std::thread >( &IOCP::AcceptThreadProcedure, *this ) );
 }
 
 void IOCP::Release()
@@ -111,7 +112,7 @@ struct Connection
 	SOCKET socket;
 };
 
-void IOCP::Accept()
+void IOCP::AcceptThreadProcedure()
 {
 	while ( 1 )
 	{
