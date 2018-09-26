@@ -1,21 +1,24 @@
 #pragma once
 
-class IOCP
+namespace Hacks
 {
-public:
-	IOCP();
-	~IOCP();
+	class IOCP
+	{
+	public:
+		IOCP();
+		~IOCP();
 
-	void Init( short Port );
-	void Release();
+		void Init( short Port );
+		void Release();
 
-private:
-	void AcceptThreadProcedure();
-	void IoThreadProcedure();
-	void Send( SOCKET socket, const char* buffer, int len );
+	private:
+		void AcceptThreadProcedure();
+		void IoThreadProcedure();
+		void Send( SOCKET socket, const char* buffer, int len );
 
-private:
-	SOCKET socket;
-	HANDLE iocpHandle;
-	std::vector< std::shared_ptr< std::thread > > threads;
-};
+	private:
+		SOCKET socket;
+		HANDLE iocpHandle;
+		std::vector< std::shared_ptr< std::thread > > threads;
+	};
+}
