@@ -36,4 +36,5 @@
 *.log
 *.pdb
 *.idb
+*.user
 .vs/
