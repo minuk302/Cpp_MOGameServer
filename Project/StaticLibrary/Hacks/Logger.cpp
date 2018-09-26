@@ -1,16 +1,6 @@
 #include "stdafx.h"
 #include "Logger.h"
 
-Logger::Logger()
-{
-	::InitializeCriticalSection( &listenersCs );
-}
-
-Logger::~Logger()
-{
-	::DeleteCriticalSection( &listenersCs );
-}
-
 Logger& Logger::GetInstance()
 {
 	static Logger logger;

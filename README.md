@@ -14,7 +14,6 @@
     * Dispatcher
     * Session management system
     * Test client
-    * Lock class(read/write)
     * Pooling for instances used to recv
     * DB sp call,receive
     * dump making system

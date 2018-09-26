@@ -3,9 +3,9 @@
 class Logger
 {
 private:
-	Logger();
+	Logger() = default;
 public:
-	~Logger();
+	~Logger() = default;
 	static Logger& GetInstance();
 
 public:
@@ -22,7 +22,6 @@ public:
 	void Write( Type type, const std::wostream&& stream );
 
 private:
-	CRITICAL_SECTION listenersCs;
 	std::wofstream file;
 };
 
