@@ -32,3 +32,5 @@ namespace Hacks
 #define WARNING_LOG Hacks::Logger::GetInstance().Write( Hacks::Logger::Type::Warning, std::move( std::wstringstream()
 #define ERROR_LOG Hacks::Logger::GetInstance().Write( Hacks::Logger::Type::Error, std::move( std::wstringstream()
 #define EOL L" @" << __FUNCTION__ ) );
+
+#define VALUE( x ) #x L" : " << x << L", "

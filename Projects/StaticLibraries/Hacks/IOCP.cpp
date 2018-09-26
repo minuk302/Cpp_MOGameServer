@@ -4,7 +4,6 @@
 
 namespace Hacks
 {
-
 	IOCP::IOCP()
 		: socket( INVALID_SOCKET )
 		, iocpHandle( INVALID_HANDLE_VALUE )
@@ -15,34 +14,37 @@ namespace Hacks
 	{
 	}
 
-	void IOCP::Init( short Port )
+	bool IOCP::Init( short Port )
 	{
-		// need more logs to print errors and system values
+		INFO_LOG << "IOCP Init Start. " << VALUE( Port ) << EOL;
 		if ( socket != INVALID_SOCKET )
 		{
-			// already running
-			return;
+			WARNING_LOG << L"socket is valid already." << EOL;
+			return false;
 		}
 
 		WSADATA wsaData;
 		if ( WSAStartup( MAKEWORD( 2, 2 ), &wsaData ) != 0 )
 		{
-			return;
+			ERROR_LOG << L"WSAStartup() failed." << EOL;
+			return false;
 		}
 		iocpHandle = CreateIoCompletionPort( INVALID_HANDLE_VALUE, NULL, 0, 0 );
 
 		SYSTEM_INFO sysInfo;
 		GetSystemInfo( &sysInfo );
-		threads.reserve( sysInfo.dwNumberOfProcessors + 1/*AcceptThread*/ );
+		int threadsCount = sysInfo.dwNumberOfProcessors + 1/*AcceptThread*/;
+		threads.reserve( threadsCount );
 		for ( DWORD i = 0; i < sysInfo.dwNumberOfProcessors; ++i ) // need to make it set by config
 		{
-			threads.emplace_back( std::make_shared< std::thread >( &IOCP::IoThreadProcedure, *this ) );
+			threads.emplace_back( std::make_shared< std::thread >( &IOCP::IoThreadProcedure, this ) );
 		}
 
 		socket = WSASocket( AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED );
 		if ( socket == INVALID_SOCKET )
 		{
-			return;
+			ERROR_LOG << L"WSASocket() failed." << EOL;
+			return false;
 		}
 
 		SOCKADDR_IN servAdr;
@@ -52,15 +54,20 @@ namespace Hacks
 		servAdr.sin_port = htons( Port );
 		if ( bind( socket, reinterpret_cast<SOCKADDR*>(&servAdr), sizeof( servAdr ) ) == SOCKET_ERROR )
 		{
-			return;
+			ERROR_LOG << L"bind() failed." << VALUE( Port ) << EOL;
+			return false;
 		}
 
 		if ( listen( socket, SOMAXCONN ) == SOCKET_ERROR )
 		{
-			return;
+			ERROR_LOG << L"listen() failed." << VALUE( Port ) << EOL;
+			return false;
 		}
 
-		threads.emplace_back( std::make_shared< std::thread >( &IOCP::AcceptThreadProcedure, *this ) );
+		threads.emplace_back( std::make_shared< std::thread >( &IOCP::AcceptThreadProcedure, this ) );
+		INFO_LOG << "IOCP Init Succeeded. " << VALUE( threadsCount ) << EOL;
+
+		return true;
 	}
 
 	void IOCP::Release()

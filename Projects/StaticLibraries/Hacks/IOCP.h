@@ -8,7 +8,7 @@ namespace Hacks
 		IOCP();
 		~IOCP();
 
-		void Init( short Port );
+		bool Init( short Port );
 		void Release();
 
 	private:
