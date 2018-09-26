@@ -25,4 +25,4 @@
 
  * Etc
    * IDE : VS2017
-   * OS : Windows
+   * OS : Windows 10

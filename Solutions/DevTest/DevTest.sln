@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hacks", "Hacks.vcxproj", "{08D46746-25CC-4FFD-811A-D981474FEDB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DevTest", "..\..\Projects\Executables\DevTest\DevTest.vcxproj", "{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hacks", "..\..\Projects\StaticLibraries\Hacks\Hacks.vcxproj", "{08D46746-25CC-4FFD-811A-D981474FEDB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Debug|x64.ActiveCfg = Debug|x64
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Debug|x64.Build.0 = Debug|x64
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Debug|x86.ActiveCfg = Debug|Win32
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Debug|x86.Build.0 = Debug|Win32
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Release|x64.ActiveCfg = Release|x64
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Release|x64.Build.0 = Release|x64
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Release|x86.ActiveCfg = Release|Win32
+		{3EE09EB7-9A38-46E4-A7E1-D92100D63C22}.Release|x86.Build.0 = Release|Win32
 		{08D46746-25CC-4FFD-811A-D981474FEDB1}.Debug|x64.ActiveCfg = Debug|x64
 		{08D46746-25CC-4FFD-811A-D981474FEDB1}.Debug|x64.Build.0 = Debug|x64
 		{08D46746-25CC-4FFD-811A-D981474FEDB1}.Debug|x86.ActiveCfg = Debug|Win32
@@ -26,6 +36,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AEB3EF44-E98A-4436-9617-1DDD4681CCA5}
+		SolutionGuid = {EB91E18E-55F2-4556-A194-D0C2D458EB89}
 	EndGlobalSection
 EndGlobal

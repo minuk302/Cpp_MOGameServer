@@ -37,4 +37,5 @@
 *.pdb
 *.idb
 *.user
+*.ilk
 .vs/
