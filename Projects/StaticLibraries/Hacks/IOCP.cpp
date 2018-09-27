@@ -16,7 +16,7 @@ namespace Hacks
 
 	bool IOCP::Init( short Port )
 	{
-		INFO_LOG << "IOCP Init Start. " << VALUE( Port ) << EOL;
+		INFO_LOG << "IOCP Init() Started. " << VALUE( Port ) << EOL;
 		if ( socket != INVALID_SOCKET )
 		{
 			WARNING_LOG << L"socket is valid already." << EOL;
@@ -65,20 +65,26 @@ namespace Hacks
 		}
 
 		threads.emplace_back( std::make_shared< std::thread >( &IOCP::AcceptThreadProcedure, this ) );
-		INFO_LOG << "IOCP Init Succeeded. " << VALUE( threadsCount ) << EOL;
+		INFO_LOG << "IOCP Init() Finished. " << VALUE( threadsCount ) << EOL;
 
 		return true;
 	}
 
 	void IOCP::Release()
 	{
-		// close all sockets(clients too), make threads to return if server socket is invalid
+		INFO_LOG << L"IOCP Release() Started. " << VALUE( threads.size() ) << EOL;
 
-		closesocket( socket );
-		socket = INVALID_SOCKET;
+		if ( socket != INVALID_SOCKET )
+		{
+			closesocket( socket );
+			socket = INVALID_SOCKET;
+		}
 
-		CloseHandle( iocpHandle );
-		iocpHandle = INVALID_HANDLE_VALUE;
+		if ( iocpHandle != INVALID_HANDLE_VALUE )
+		{
+			CloseHandle( iocpHandle );
+			iocpHandle = INVALID_HANDLE_VALUE;
+		}
 
 		WSACleanup();
 
@@ -87,6 +93,7 @@ namespace Hacks
 			(*itr)->join();
 		}
 		threads.clear();
+		INFO_LOG << L"IOCP Release() Finished." << EOL;
 	}
 
 #define BUF_SIZE 1024
@@ -129,6 +136,11 @@ namespace Hacks
 			SOCKADDR_IN clientAddressInfo;
 			int addressInfoLength = sizeof( clientAddressInfo );
 			SOCKET clientSocket = accept( socket, (SOCKADDR*)&clientAddressInfo, &addressInfoLength );
+			if ( socket == INVALID_SOCKET )
+			{
+				break;
+			}
+
 			if ( clientSocket == INVALID_SOCKET )
 			{
 				continue;
@@ -152,6 +164,10 @@ namespace Hacks
 			Connection* connection = nullptr;
 			IocpBuffer* buffer = nullptr;
 			GetQueuedCompletionStatus( iocpHandle, nullptr, reinterpret_cast<PULONG_PTR>(&connection), reinterpret_cast<LPOVERLAPPED*>(&buffer), INFINITE );
+			if ( iocpHandle == INVALID_HANDLE_VALUE )
+			{
+				break;
+			}
 
 			if ( buffer == nullptr )
 			{
