@@ -18,6 +18,13 @@
     * DB sp call,receive
     * dump making system
     * build automation on push
+    * ipv4/ipv6 compatibility(ipv4 for now)
+    * reference/learn
+      * boost asio
+      * .net core
+      * thread queue between network, db threads, through iocp,  Inter-Thread Communication
+        * not to waste cpu cycle, by making notify
+	* PostQueuedCompletionStatus
   * Done
     * log system
       * to log debbug window
