@@ -14,7 +14,6 @@
     * Dispatcher
     * Session management system
     * Test client
-    * Pooling for instances used to recv
     * DB sp call,receive
     * dump making system
     * build automation on push
@@ -25,6 +24,10 @@
       * thread queue between network, db threads, through iocp,  Inter-Thread Communication
         * not to waste cpu cycle, by making notify
 	* PostQueuedCompletionStatus
+    * performance
+      * buffers, connections pooling after analyzing performance
+      * SO_RCVBUF
+      * SO_SNDBUF
   * Done
     * log system
       * to log debbug window

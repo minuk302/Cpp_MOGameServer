@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "IOCP.h"
 #include "../Logger.h"
-
 namespace Hacks
 {
 	namespace Network
@@ -79,6 +78,14 @@ namespace Hacks
 			{
 				ERROR_LOG << L"WSASocket() failed. " << VALUE( WSAGetLastError() ) << EOL;
 				return false;
+			}
+
+			linger lingerOption;
+			lingerOption.l_onoff = true;
+			lingerOption.l_linger = 0;
+			if ( setsockopt( socket, SOL_SOCKET, SO_LINGER, (const char *)&lingerOption, sizeof( lingerOption ) ) == SOCKET_ERROR )
+			{
+				ERROR_LOG << L"setsockopt() with SO_LINGER failed. " << VALUE( WSAGetLastError() ) << EOL;
 			}
 
 			SOCKADDR_IN servAdr;
@@ -194,7 +201,6 @@ namespace Hacks
 					continue;
 				}
 
-				// need to pool connections, buffers
 				Connection* connection = new Connection();
 				if ( connection->Init( clientSocket, sockeAddr ) == false )
 				{
@@ -239,7 +245,7 @@ namespace Hacks
 				if ( GetQueuedCompletionStatus( iocpHandle, &transferredBytes, reinterpret_cast<PULONG_PTR>( &connection ), reinterpret_cast<LPOVERLAPPED*>( &buffer ), INFINITE ) == 0 )
 				{
 					int error = GetLastError();
-					if ( iocpHandle == INVALID_HANDLE_VALUE && error == ERROR_ABANDONED_WAIT_0 )
+					if ( iocpHandle == INVALID_HANDLE_VALUE || error == ERROR_ABANDONED_WAIT_0 )
 					{
 						break;
 					}

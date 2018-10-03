@@ -38,4 +38,6 @@
 *.idb
 *.user
 *.ilk
+*.iobj
+*.ipdb
 .vs/

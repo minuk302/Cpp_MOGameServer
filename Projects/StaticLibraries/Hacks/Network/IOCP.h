@@ -20,6 +20,7 @@ namespace Hacks
 			SOCKET socket;
 			wchar_t ipAddress[ INET_ADDRSTRLEN ];
 		};
+		struct IocpBuffer;
 
 		class IOCP
 		{
